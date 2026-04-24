@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "bananabay-plugins",
+  "description": "BananaBay69's Claude Code plugin marketplace",
+  "owner": {
+    "name": "BananaBay69"
+  },
+  "homepage": "https://github.com/BananaBay69/claude-plugins",
+  "plugins": [
+    {
+      "name": "bananabay-watchdog",
+      "version": "0.1.0",
+      "description": "Claude Code plugin that writes liveness heartbeats for claude-code-watchdog",
+      "author": {
+        "name": "BananaBay69"
+      },
+      "source": "./plugins/bananabay-watchdog",
+      "category": "development"
+    }
+  ]
+}
