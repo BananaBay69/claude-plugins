@@ -29,6 +29,17 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__telegram__reply",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/outbound.sh"
+          }
+        ]
+      }
     ]
   }
 }

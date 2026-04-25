@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.0 (2026-04-26)
+
+### Added
+- `PostToolUse` hook on `mcp__telegram__reply` writing outbound timestamp to `$WATCHDOG_OUTBOUND_FILE` (default `~/.claude/watchdog/outbound`). Consumed by claude-watchdog v0.1.7+ silent-loop detection.
+- `hooks/outbound.sh` script and `test/outbound.test.sh` unit test.
+
+### Notes
+- Backward-compatible: existing `UserPromptSubmit` / `Stop` heartbeat behavior unchanged.
+- Outbound contract documented in README.md.
+
 ## v0.1.1 — 2026-04-25
 
 ### Fixed

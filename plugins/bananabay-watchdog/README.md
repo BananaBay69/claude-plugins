@@ -49,6 +49,20 @@ bash test/heartbeat.test.sh
 bash test/check-cli.test.sh
 ```
 
+## Outbound state file (v0.2.0+)
+
+The plugin writes `$WATCHDOG_OUTBOUND_FILE` (default `~/.claude/watchdog/outbound`) on every PostToolUse for `mcp__telegram__reply`. Format mirrors heartbeat:
+
+```
+1 1745700000
+```
+
+(Schema version `1`, single space, unix epoch.)
+
+claude-watchdog v0.1.7+ uses this as the outbound signal for silent-loop detection. If you don't run claude-watchdog, the file is harmless (one tiny file, atomic writes).
+
+To disable: not currently configurable; the hook overhead is negligible (one `printf` + `mv`).
+
 ## License
 
 MIT
