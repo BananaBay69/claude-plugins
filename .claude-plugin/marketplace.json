@@ -19,7 +19,7 @@
     },
     {
       "name": "invite-friend",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Telegram-driven invitation flow for 香蕉先生 — registers invites, sends the first message, schedules hourly auto-follow-ups, classifies friend replies, and maintains the contacts/aliases store. Migrated from Openclaw so Claude drives the same ~/bin/invite-cli and state files.",
       "author": {
         "name": "BananaBay69"
