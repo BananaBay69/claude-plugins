@@ -24,3 +24,4 @@ jobs:
         run: |
           bash test/heartbeat.test.sh
           bash test/check-cli.test.sh
+          bash test/outbound.test.sh

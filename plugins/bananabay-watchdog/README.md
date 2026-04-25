@@ -51,7 +51,7 @@ bash test/check-cli.test.sh
 
 ## Outbound state file (v0.2.0+)
 
-The plugin writes `$WATCHDOG_OUTBOUND_FILE` (default `~/.claude/watchdog/outbound`) on every successful `mcp__telegram__reply` call. Format mirrors heartbeat:
+The plugin writes `$WATCHDOG_OUTBOUND_FILE` (default `~/.claude/watchdog/outbound`) on every PostToolUse for `mcp__telegram__reply`. Format mirrors heartbeat:
 
 ```
 1 1745700000
