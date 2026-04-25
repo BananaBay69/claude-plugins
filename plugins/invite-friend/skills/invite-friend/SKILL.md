@@ -15,6 +15,7 @@ description: >
 > **⚡ 硬規則 1：看到任何要「邀約別人做某件事」的訊息，先走這個 skill，不要自己潤稿就交差。**
 > **⚡ 硬規則 2：看到使用者「告訴你某人是誰／是什麼關係／職業／別名」的宣告，**立刻**呼叫 CLI 寫進 contacts/aliases，不要嘴砲『知道了』就完事**（見「## 社交宣告偵測」）。
 > **⚡ 硬規則 3：每收到群組/DM 任何**非自己**的訊息，都要先跑 `~/bin/invite-cli check-reply`，命中 pending invite 就走 reply 分類流程**（見「## Reply Hook」）。**漏跑這一步 = 朋友的回應不會被處理 = #7 issue 的核心。**
+> **⚡ 硬規則 3-fall-through (issue #18 fix)**：若 `has_pending_invite=false`（99%+ 的常態）：本 SKILL 在這一步就結束，**不送任何訊息，不阻擋後續 handler**。把控制權交還給其他正在 listen 的 SKILL（例如一般對話 reply）。**漏掉這一步 = bot 變啞巴**（claude-connect#1 在 Coconut 上發生過 30+ 分鐘）。
 > **⚡ 硬規則 4（Claude-specific）：本 skill 內所有動作直接執行，不要 EnterPlanMode、不要 AskUserQuestion 確認 / 不要寫 "我可以..." 的提案語氣。Mason 已經下指令了。**
 
 透過 `~/bin/invite-cli` 登記邀請並用 Telegram Bot API 主動發訊息給朋友；未回覆時 launchd 會每小時（09:00–23:00）觸發一次 `invite-cli tick` 繼續追問，直到朋友回覆、活動時間到、或追問上限到就停。
@@ -289,7 +290,7 @@ JSON
 ~/bin/invite-cli check-reply --chat-id <當前 chat_id> --sender-user-id <sender 的 user_id> --message-id <message_id>
 ```
 
-回 JSON。`has_pending_invite=false` 是常態（占 99%+），就走原本的對話流程。`has_pending_invite=true` 才進這套 reply 處理流程。
+回 JSON。`has_pending_invite=false` 是常態（占 99%+） — **本 SKILL 在這一步就結束，不送任何訊息，不阻擋後續 handler**（fall-through gate，見頂部硬規則 3-fall-through，issue #18 fix）。`has_pending_invite=true` 才進這套 reply 處理流程。
 
 ### 為什麼
 
@@ -398,7 +399,7 @@ bot then:
 ```
 0. （收到訊息）
 1. invite-cli check-reply --chat-id X --sender-user-id Y --message-id M
-2. has_pending_invite=false → 走原對話流程，結束
+2. has_pending_invite=false → **本 SKILL 結束**，不送訊息、不阻擋後續 handler（fall-through gate, issue #18）
 3. has_pending_invite=true && already_classified=true → 跳過、結束（同 message_id 已處理；
    record-reply 也是 idempotent on message_id，再呼叫也是 no-op）
 4. has_pending_invite=true && already_classified=false:
