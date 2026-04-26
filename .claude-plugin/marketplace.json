@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "bananabay-plugins",
+  "name": "bananabay-claude-plugins",
   "description": "BananaBay69's Claude Code plugin marketplace",
   "owner": {
     "name": "BananaBay69"

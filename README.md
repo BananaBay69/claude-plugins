@@ -1,12 +1,12 @@
-# bananabay-plugins
+# bananabay-claude-plugins
 
 Claude Code plugin marketplace maintained by BananaBay69.
 
 ## Usage
 
 ```
-/plugin marketplace add BananaBay69/claude-plugins
-/plugin install <plugin-name>@bananabay-plugins
+/plugin marketplace add BananaBay69/bananabay-claude-plugins
+/plugin install <plugin-name>@bananabay-claude-plugins
 ```
 
 ## Plugins
